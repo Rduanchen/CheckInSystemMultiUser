@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>登入頁面</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="Container">
+            <h1>Login Pages</h1>
+            <div class="form">
+                <input type="text" id="username" placeholder="username">
+                <input type="password" id="password" placeholder="password">
+                <button id="login">login</button>
+            </div>
+        </div>
+    </body>
+    <script>
+        document.getElementById('login').addEventListener('click', function() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            let res = fetch(`./login.php?username=${username}&password=${password}`).then
+            (response => response.text()).then(data => {
+                console.log(data);
+                if (data == 'suceess') {
+                    alert('登入成功');
+                    window.location.href = './index.php';
+                } 
+                else if (data == 'dberror') {
+                    alert('資料庫錯誤，請聯絡管理員');
+                }
+                else {
+                    alert('登入失敗');
+                }
+            });
+        });
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Cyber';
+            src: url('./assets/Valorax-lg25V.otf');
+        }
+        @font-face {
+            font-family: 'Console';
+            src: url('./assets/Consolas.ttf');
+        }
+        h1{
+            font-family: 'Cyber';
+            color: #f6e837;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            color: #f6e837;
+            height: 95vh;
+            font-family: 'Console';
+        }
+        .form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap : 10px;
+        }
+        .Container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: baseline;
+        }
+        button{
+            font-family: 'Console';
+            background-color: #000;
+            color: #f6e837;
+            border: 1px solid #f6e837;
+            height: 25px;
+            width: 100%;
+        }
+        button:hover {
+            animation: animate 0.5s;
+        }
+        input {
+            font-family: 'Console';
+            background-color: #000;
+            color: #f6e837;
+            border: 1px solid #f6e837;
+            height: 25px;
+        }
+        @keyframes animate {
+        0% {
+            background-color: black;
+            color: white;
+        }   
+        100% {
+            background-color: white;
+            color: black;
+        }
+    }
+    </style>
+</html>
